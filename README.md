@@ -11,12 +11,12 @@
 
 ```text
 +-----------------------------------------------------+
-| gabriel@github:~$ whoami                             |
+| gabriel@github:~$ whoami                            |
 |                                                     |
 | Full Stack Developer                                |
 | Frontend  > Angular                                 |
 | Backend   > C#                                      |
-| Database  > PostgreSQL / MySQL / SQL Server           |
+| Database  > PostgreSQL / MySQL / SQL Server         |
 +-----------------------------------------------------+
 ```
 

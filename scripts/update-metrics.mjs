@@ -28,9 +28,12 @@ async function github(path, body) {
 export async function collect(username) {
   if (!/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(username)) throw new Error('Usuário inválido.');
   if (!process.env.GH_TOKEN) throw new Error('Defina GH_TOKEN ou execute o workflow do repositório.');
-  const query = `query($login: String!) {
+  const end = new Date();
+  const start = new Date(end);
+  start.setUTCFullYear(start.getUTCFullYear() - 1);
+  const query = `query($login: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $login) {
-      contributionsCollection {
+      contributionsCollection(from: $from, to: $to) {
         startedAt endedAt restrictedContributionsCount
         contributionCalendar {
           totalContributions
@@ -44,7 +47,7 @@ export async function collect(username) {
     github(`users/${username}`),
     github(`search/issues?q=${encodeURIComponent(`author:${username} is:pr is:public`)}&per_page=1`),
     github(`search/issues?q=${encodeURIComponent(`author:${username} is:pr is:merged is:public`)}&per_page=1`),
-    github('graphql', { query, variables: { login: username } })
+    github('graphql', { query, variables: { login: username, from: start.toISOString(), to: end.toISOString() } })
   ]);
   const collection = graph.data?.user?.contributionsCollection;
   if (!collection) throw new Error('Calendário não retornado pelo GitHub.');
