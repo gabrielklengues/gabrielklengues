@@ -23,7 +23,7 @@ function icon(name, x, y, size) {
   return icons.get(name).replace(/<svg\b[^>]*>/, tag => tag.replace(/\s(?:width|height|x|y)="[^"]*"/g, '').replace('>', ` x="${x}" y="${y}" width="${size}" height="${size}">`));
 }
 function hands(x, y, size, leading) {
-  return `<g fill="${colors.text}" font-size="${size}" xml:space="preserve" aria-hidden="true">${lines.map((line, i) => `<text x="${x}" y="${y + i * leading}">${escape(line)}</text>`).join('')}</g>`;
+  return `<g fill="${colors.text}" font-size="${size}" xml:space="preserve" aria-hidden="true">${lines.map((line, i) => `<text x="${x}" y="${y + i * leading}">${escape(line).replaceAll(' ', '&#160;')}</text>`).join('')}</g>`;
 }
 function whoami(compact) {
   const width = compact ? 720 : 1200;
@@ -32,7 +32,7 @@ function whoami(compact) {
   const x = compact ? 30 : 748;
   const valueX = compact ? 208 : 885;
   const base = compact ? 384 : 108;
-  const size = compact ? 28 : 17;
+  const size = compact ? 28 : 20;
   body += text(x, base, 'gabriel@github', compact ? 32 : 23, colors.green);
   body += text(x, base + 53, 'perfil', size, colors.muted) + text(valueX, base + 53, 'Full Stack Developer', size);
   body += text(x, base + 104, 'formação', size, colors.muted) + text(valueX, base + 104, 'Análise e Desenvolvimento', size);
@@ -60,7 +60,7 @@ function stack(compact) {
 }
 for (const compact of [false, true]) {
   const suffix = compact ? '-mobile' : '';
-  await writeFile(new URL(`assets/profile${suffix}.svg`, root), whoami(compact));
+  await writeFile(new URL(`assets/whoami${suffix}.svg`, root), whoami(compact));
   await writeFile(new URL(`assets/stack${suffix}.svg`, root), stack(compact));
 }
 console.log(`Painéis estáticos gerados em ${fileURLToPath(root)}.`);

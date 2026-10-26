@@ -1,7 +1,7 @@
 <p align="left">
   <picture>
-    <source media="(max-width: 760px)" srcset="./assets/profile-mobile.svg" />
-    <img src="./assets/profile.svg" width="100%" alt="Gabriel Klengues: Full Stack Developer, formado em Análise e Desenvolvimento de Sistemas. Graduação concluída. Atuação em produtos de ponta a ponta. Mãos em ASCII acompanham a apresentação." />
+    <source media="(max-width: 760px)" srcset="./assets/whoami-mobile.svg" />
+    <img src="./assets/whoami.svg" width="100%" alt="Gabriel Klengues: Full Stack Developer, formado em Análise e Desenvolvimento de Sistemas. Graduação concluída. Atuação em produtos de ponta a ponta. Mãos em ASCII acompanham a apresentação." />
   </picture>
 </p>
 

@@ -45,7 +45,7 @@ test('tecnologias aparecem uma vez em stack e não aparecem em whoami', async ()
   for (const suffix of ['', '-mobile']) {
     const stack = await readFile(new URL(`../assets/stack${suffix}.svg`, import.meta.url), 'utf8');
     const labels = [...stack.matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].map(match => match[1]);
-    const profile = await readFile(new URL(`../assets/profile${suffix}.svg`, import.meta.url), 'utf8');
+    const profile = await readFile(new URL(`../assets/whoami${suffix}.svg`, import.meta.url), 'utf8');
     for (const name of names) {
       assert.equal(labels.filter(label => label === name).length, 1, name);
       assert.ok(!profile.includes(name), `whoami contém ${name}`);
