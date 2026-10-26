@@ -7,7 +7,7 @@ on:
   push:
     branches: [master]
     paths:
-      - 'scripts/update-metrics.mjs'
+      - 'scripts/**'
       - '.github/workflows/profile-metrics.yml'
 
 permissions:
@@ -23,6 +23,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Verificar o painel e o conteúdo
+        run: node --test scripts/render-activity.test.mjs
       - name: Consultar GitHub e gerar o painel
         env:
           GH_TOKEN: ${{ github.token }}
@@ -32,7 +34,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/activity.svg data/activity.json
+          git add assets/activity-isometric.svg assets/activity-isometric-mobile.svg data/activity.json
           if git diff --cached --quiet; then
             echo 'Nenhuma alteração nas métricas.'
             exit 0
